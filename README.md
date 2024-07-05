@@ -2,6 +2,8 @@
 
 Contains the training scripts, trained CACE potentials, and MD input files.
 
+These use CACE V0.
+
 # Dataset
 
 - The water data set is from from [https://github.com/BingqingCheng/ab-initio-thermodynamics-of-water]
