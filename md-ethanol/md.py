@@ -17,7 +17,7 @@ from ase.md.nptberendsen import NPTBerendsen
 from ase.md import MDLogger
 from ase.io import read, write
 
-init_conf = read('../../datasets/md17_ethanol/test-n1000.xyz', '0')
+init_conf = read('ethanol.xyz', '0')
 cace_nnp = torch.load(sys.argv[1], map_location=torch.device('cpu'))
 
 # load the avge0 dict from a file if possible
@@ -25,7 +25,7 @@ if os.path.exists('avge0.pkl'):
     with open('avge0.pkl', 'rb') as f:
         avge0 = pickle.load(f)
 else:
-    xyz = read('../../datasets/md17_ethanol/train-n1000.xyz',':')
+    xyz = read('../fit-ethanol/train-n1000.xyz',':')
     avge0 = cace.tools.compute_average_E0s(xyz)
     # save the avge0 dict to a file
     with open('avge0.pkl', 'wb') as f:
