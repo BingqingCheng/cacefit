@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import sys
-sys.path.append('../../cace/')
+#import sys
+#sys.path.append('../../cace/')
 
 import numpy as np
 import torch
@@ -20,27 +20,27 @@ from cace.tasks.train import TrainingTask
 torch.set_default_dtype(torch.float32)
 
 cace.tools.setup_logger(level='INFO')
+cutoff = 5.5
 
 logging.info("reading data")
-collection = cace.tasks.get_dataset_from_xyz(train_path='../../datasets/water/water.xyz',
+collection = cace.tasks.get_dataset_from_xyz(train_path='water.xyz',
                                  valid_fraction=0.1,
                                  seed=1,
-                                 energy_key='energy',
-                                 forces_key='force',
+                                 cutoff=cutoff,
+                                 data_key={'energy': 'energy', 'forces':'force'}, 
                                  atomic_energies={1: -187.6043857100553, 8: -93.80219285502734} # avg
                                  )
-cutoff = 5.5
 batch_size = 2
 
 train_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='train',
                               batch_size=batch_size,
-                              cutoff=cutoff)
+                              )
 
 valid_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='valid',
                               batch_size=4,
-                              cutoff=cutoff)
+                              )
 
 use_device = 'cuda'
 device = cace.tools.init_device(use_device)

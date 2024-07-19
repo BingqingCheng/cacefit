@@ -2,7 +2,9 @@
 
 Contains the training scripts, trained CACE potentials, and MD input files.
 
-These use CACE V0.
+The syntax of the training scripts are up-to-date with the CACE repository [https://github.com/BingqingCheng/cace]
+
+The older version of the training scripts for CACE V0 is in the legacy branch. The trained potentials have the same format. It is only the way how the input files are parsed is changed.
 
 # Dataset
 

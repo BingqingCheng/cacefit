@@ -23,24 +23,23 @@ cace.tools.setup_logger(level='INFO')
 
 import ase
 
-collection = cace.tasks.get_dataset_from_xyz(train_path='../../datasets/hea_data/train_set/n-24630.xyz',
-                                 valid_fraction=0.05,
-                                 energy_key='energy',
-                                 forces_key='forces',
-                                )
-
 cutoff = 4.5
+collection = cace.tasks.get_dataset_from_xyz(train_path='n-24630.xyz',
+                                 valid_fraction=0.05,
+                                 cutoff=cutoff
+                                 )
+
 batch_size = 10
 
 train_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='train',
                               batch_size=batch_size,
-                              cutoff=cutoff)
+                              )
 
 valid_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='valid',
                               batch_size=20,
-                              cutoff=cutoff)
+                              )
 
 use_device = 'cuda'
 device = cace.tools.init_device(use_device)

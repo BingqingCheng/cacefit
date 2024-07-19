@@ -22,27 +22,26 @@ torch.set_default_dtype(torch.float32)
 cace.tools.setup_logger(level='INFO')
 
 import ase
-xyz = ase.io.read('../../datasets/3BPA/train_300K.xyz', ':')
+xyz = ase.io.read('train_300K.xyz', ':')
 avge0 = cace.tools.compute_average_E0s(xyz)
 
-collection = cace.tasks.get_dataset_from_xyz(train_path='../../datasets/3BPA/train_300K.xyz',
+cutoff = 6
+collection = cace.tasks.get_dataset_from_xyz(train_path='train_300K.xyz',
                                  valid_fraction=0.1,
-                                 energy_key='energy',
-                                 forces_key='forces',
+                                 cutoff=cutoff,
                                  atomic_energies=avge0)
 
-cutoff = 6
 batch_size = 2
 
 train_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='train',
                               batch_size=batch_size,
-                              cutoff=cutoff)
+                              )
 
 valid_loader = cace.tasks.load_data_loader(collection=collection,
                               data_type='valid',
                               batch_size=100,
-                              cutoff=cutoff)
+                              )
 
 use_device = 'cuda'
 device = cace.tools.init_device(use_device)

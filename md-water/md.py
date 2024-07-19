@@ -19,7 +19,7 @@ from ase.io import read, write
 
 water_conf = read('liquid-64.xyz', '0')
 init_conf = water_conf.repeat((2,2,2))
-cace_nnp = torch.load(sys.argv[1])
+cace_nnp = torch.load(sys.argv[1], map_location=torch.device('cpu'))
 
 preprocessor = cace.modules.Preprocess()
 cace_nnp.input_modules = nn.ModuleList([preprocessor])
@@ -38,7 +38,7 @@ else:
         pickle.dump(avge0, f)
 
 calculator = CACECalculator(model_path=cace_nnp, 
-                            device='cuda', 
+                            device='cpu', 
                             energy_key='CACE_energy', 
                             forces_key='CACE_forces',
                             compute_stress=True,
